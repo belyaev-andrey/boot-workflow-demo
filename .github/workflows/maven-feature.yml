@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           clean: 'true'
-      - name: Setup JDK 17
+      - name: Setup JDK ${{matrix.runtimes}}
         uses: actions/setup-java@v4
         with:
           java-version: ${{matrix.runtimes}}
