@@ -6,14 +6,20 @@ on:
       - 'release*'
 jobs:
   test:
+    strategy:
+      matrix:
+        runtimes: [17, 21]
+        runners: [ubuntu-latest]
     name: Unit Test
-    runs-on: ubuntu-latest
+    runs-on: ${{matrix.runners}}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
+        with:
+          clean: 'true'
       - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: 17
+          java-version: ${{matrix.runtimes}}
           distribution: 'liberica'
       - name: Gradle Package
         run: ./gradlew clean bootJar
